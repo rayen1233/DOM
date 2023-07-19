@@ -1,0 +1,33 @@
+var totalPrice = 0;
+
+function recalculateTotal() {
+  totalPrice = 0;
+  $('.cart-info').each(function() {
+    var price = $(this).find('td:last-child').text();
+    var quantity = $(this).find('input').val();
+    totalPrice += price * quantity;
+  });
+  $('.total-price td:first-child').text('Subtotal:');
+  $('.total-price td:last-child').text(totalPrice);
+}
+
+$(document).ready(function() {
+  // Calculate the total price
+  recalculateTotal();
+
+  // Change the color of the wishlist button when clicked
+  $('.wishlist').click(function() {
+    $(this).css('color', 'red');
+  });
+
+  // Remove the product from the cart when the remove button is clicked
+  $('.Remove').click(function() {
+    $(this).parent().remove();
+    recalculateTotal();
+  });
+
+  // Recalculate the total price when the quantity is changed
+  $('input').change(function() {
+    recalculateTotal();
+  });
+});
